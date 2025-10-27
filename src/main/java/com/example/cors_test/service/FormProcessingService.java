@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 
+// Name=Алексей&Email=alex@gmail.com&Textarea=Привет&tranid=16757156:7888517302&formid=form1467857151
+
 @Service
 @RequiredArgsConstructor
 public class FormProcessingService {
@@ -23,20 +25,14 @@ public class FormProcessingService {
     private final JavaMailSender mailSender;
     private final ObjectMapper objectMapper;
 
-    // Name=Алексей&Email=alex@gmail.com&Textarea=Привет&tranid=16757156:7888517302&formid=form1467857151
+
     @Transactional
     public ResponseEntity<Map<String, String>> handleTrainingRequest(Map<String, String> params) {
-        String name = params.getOrDefault("Name", null);
-        String email = params.getOrDefault("Email", null);
-        String textArea = params.getOrDefault("Textarea", null);
-        String tranid = params.getOrDefault("tranid", null);
+        String formId = params.getOrDefault("trainId", null);
 
-        FormSubmission form = new FormSubmission(
-                tranid,
-                name,
-                email,
-                textArea
-        );
+        FormSubmission form = new FormSubmission();
+        form.setTrainId(formId);
+        form.setAllParams(params);
 
         formSubmissionRepository.save(form);
 
@@ -55,19 +51,19 @@ public class FormProcessingService {
     }
 
 
-    private String createEmailText(FormSubmission request) {
-        return String.format("""
-        🏋️ Новая заявка на тренировку
-        --------------------
-        📝 Имя: %s
-        📧 Email: %s
-        💬 Комментарий: %s
-        ⏰ Время: %s
-        """,
-                request.getName() != null ? request.getName() : "Не указано",
-                request.getEmail() != null ? request.getEmail() : "Не указано",
-                request.getTextArea() != null ? request.getTextArea() : "Не указано",
-                java.time.LocalDateTime.now()
-        );
-    }
+//    private String createEmailText(FormSubmission request) {
+//        return String.format("""
+//        🏋️ Новая заявка на тренировку
+//        --------------------
+//        📝 Имя: %s
+//        📧 Email: %s
+//        💬 Комментарий: %s
+//        ⏰ Время: %s
+//        """,
+//                request.getName() != null ? request.getName() : "Не указано",
+//                request.getEmail() != null ? request.getEmail() : "Не указано",
+//                request.getTextArea() != null ? request.getTextArea() : "Не указано",
+//                java.time.LocalDateTime.now()
+//        );
+//    }
 }

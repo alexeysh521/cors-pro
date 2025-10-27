@@ -23,8 +23,6 @@ public class TildaFormController {
     @PostMapping("/submit")
     public ResponseEntity<Map<String, String>> handleFormSubmission(
             @RequestParam Map<String, String> allParams){
-            //@RequestHeader(value = "Referer", required = false) String pageUrl)
-
 
         String formId = allParams.get("formid");
         LOGGER.info("📩 Получена форма: {}", formId);
@@ -43,7 +41,7 @@ public class TildaFormController {
                 return formProcessingService.handleTrainingRequest(allParams);
             }
             case "form1467857152" -> {
-                // форма "Контактная"
+                // форма ""
                 return formProcessingService.handleContactRequest(allParams);
             }
             case "form1467857153" -> {

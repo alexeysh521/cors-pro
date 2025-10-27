@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,9 +19,7 @@ public class Abonement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // тип абонемента
-    @Enumerated(EnumType.STRING)
-    private AbonementType type;
+    private String name;
 
     // продолжительность абонемента
     @Enumerated(EnumType.STRING)
@@ -30,11 +30,17 @@ public class Abonement {
     private ActivityType activity;
 
     // заказы
-    @OneToOne(mappedBy = "abonement")
-    private Orders order;
+    @OneToMany(mappedBy = "abonement", cascade = CascadeType.ALL)
+    private List<Orders> orders = new ArrayList<>();
 
     // время создания
     private LocalDateTime createdAt;
+
+    // время удаления
+    private LocalDateTime closedAt;
+
+    // время изменения
+    private LocalDateTime changeAt;
 
     public Abonement() {}
 }

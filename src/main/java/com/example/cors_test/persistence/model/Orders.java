@@ -15,8 +15,8 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "abonement_id")
+    @ManyToOne
+    @JoinColumn(name = "abonement_id", nullable = false)
     private Abonement abonement;
 
     // сумма заказа
@@ -28,6 +28,8 @@ public class Orders {
     private Clients client;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime closedAt;
 
     public Orders() {}
 }
