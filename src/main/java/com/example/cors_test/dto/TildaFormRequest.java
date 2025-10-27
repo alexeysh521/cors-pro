@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Map;
 
+@Deprecated
 @Data
 public class TildaFormRequest {
     private String name;

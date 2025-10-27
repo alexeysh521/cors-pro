@@ -19,15 +19,18 @@ public class TildaFormController {
 
     // http://localhost/8080/api/tilda/submit
     // https://webjack.ru/webhooks/tilda/b8ac8aec7c14401d9e7c7b6739f41eda/
+    // Name=Алексей&Email=alex@gmail.com&Textarea=Привет&tranid=16757156:7888517302&formid=form1467857151
     @PostMapping("/submit")
     public ResponseEntity<Map<String, String>> handleFormSubmission(
-            @RequestParam Map<String, String> allParams,
-            @RequestHeader(value = "Referer", required = false) String pageUrl) {
+            @RequestParam Map<String, String> allParams){
+            //@RequestHeader(value = "Referer", required = false) String pageUrl)
+
 
         String formId = allParams.get("formid");
         LOGGER.info("📩 Получена форма: {}", formId);
 
         if (formId == null) {
+            LOGGER.error("No resource found");
             return ResponseEntity.badRequest().body(Map.of(
                     "status", "error",
                     "message", "Не указан formid"
@@ -37,15 +40,15 @@ public class TildaFormController {
         switch (formId) {
             case "form1467857151" -> {
                 // форма "Заявка на тренировку"
-                return formProcessingService.handleTrainingRequest(allParams, pageUrl);
+                return formProcessingService.handleTrainingRequest(allParams);
             }
             case "form1467857152" -> {
                 // форма "Контактная"
-                return formProcessingService.handleContactRequest(allParams, pageUrl);
+                return formProcessingService.handleContactRequest(allParams);
             }
             case "form1467857153" -> {
                 // форма "Онлайн-заказ еды"
-                return formProcessingService.handleFoodOrder(allParams, pageUrl);
+                return formProcessingService.handleFoodOrder(allParams);
             }
             default -> {
                 LOGGER.warn("Неизвестная форма: {}", formId);

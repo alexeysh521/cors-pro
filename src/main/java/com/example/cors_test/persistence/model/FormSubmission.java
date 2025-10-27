@@ -15,17 +15,18 @@ public class FormSubmission {
 
     private String name;
     private String email;
-    private String message;
-
-    @Column(columnDefinition = "TEXT")
-    private String formData;
-
-    @Column(name = "form_name")
-    private String formName;
-
-    @Column(name = "page_url")
-    private String pageUrl;
+    private String textArea;
+    private String trainId;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public FormSubmission() {}
+
+    public FormSubmission(String trainId, String name, String email, String textArea) {
+        this.trainId = trainId;
+        this.name = name;
+        this.email = email;
+        this.textArea = textArea;
+    }
 }
