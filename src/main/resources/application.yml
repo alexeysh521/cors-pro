@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: tilda-forms-backend
+
+  # CORS для Tilda (разрешаем все Tilda домены)
+  web:
+    cors:
+      allowed-origins: "https://project16757156.tilda.ws/,https://*.tilda.ws,https://*.tilda.com,https://*.tilda.ru,http://localhost:3000"
+      allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+      allowed-headers: "*"
+      allow-credentials: false
+
+  # Email для уведомлений о заявках с Tilda
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME:your-email@gmail.com}
+    password: ${EMAIL_PASSWORD:your-app-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tilda-test-server
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+# Настройки для Tilda форм
+tilda:
+  webhook:
+    secret: ${TILDA_WEBHOOK_SECRET:}
+  notification:
+    admin-email: admin@yourstudio.com
+    send-email: true
+    send-telegram: false
+
+logging:
+  level:
+    com.yourstudio.tildaforms: DEBUG
+    org.springframework.web: INFO
