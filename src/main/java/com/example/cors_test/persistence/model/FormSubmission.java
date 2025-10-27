@@ -24,7 +24,6 @@ public class FormSubmission {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-
     @ElementCollection
     @CollectionTable(
             name = "form_submission_params",
@@ -33,7 +32,6 @@ public class FormSubmission {
     @MapKeyColumn(name = "param_key")
     @Column(name = "param_value")
     private Map<String, String> allParams = new HashMap<>();
-
 
     public FormSubmission() {}
 
