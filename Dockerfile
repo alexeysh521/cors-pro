@@ -4,6 +4,8 @@ FROM eclipse-temurin:21-jdk-jammy AS build
 # Создаём рабочую директорию
 WORKDIR /app
 
+EXPOSE 8080
+
 # Копируем Maven файлы
 COPY pom.xml mvnw* ./
 COPY .mvn .mvn
