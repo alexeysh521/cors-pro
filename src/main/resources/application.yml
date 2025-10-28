@@ -1,5 +1,7 @@
+
 server:
   port: 8080
+  address: 0.0.0.0
 
 spring:
   application:
@@ -8,7 +10,12 @@ spring:
   # CORS для Tilda (разрешаем все Tilda домены)
   web:
     cors:
-      allowed-origins: "https://project16757156.tilda.ws/,https://*.tilda.ws,https://*.tilda.com,https://*.tilda.ru,http://localhost:3000"
+      allowed-origins:
+        - "https://project16757156.tilda.ws"
+        - "https://*.tilda.ws"
+        - "https://*.tilda.com"
+        - "https://*.tilda.ru"
+        - "http://localhost:3000"
       allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
       allowed-headers: "*"
       allow-credentials: false
@@ -26,13 +33,13 @@ spring:
           starttls:
             enable: true
         debug: true
-
+#
   datasource:
     url: jdbc:postgresql://localhost:5432/tilda-test-server
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
-
+#
   jpa:
     hibernate:
       ddl-auto: update
@@ -41,7 +48,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-
+#
 # Настройки для Tilda форм
 tilda:
   webhook:
